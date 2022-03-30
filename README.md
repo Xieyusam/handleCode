@@ -44,3 +44,55 @@
 22. 实现字符串的repeat方法
 23. 实现字符串翻转
 24. 将数字每千分位用逗号隔开
+
+
+2022/3/23
+
+25. 实现非负大整数相加
+26. 实现 add(1)(2)(3)
+27. 实现类数组转化为数组
+28. 使用 reduce 求和
+29. 将js对象转化为树形结构
+30. 使用ES5和ES6求函数参数的和
+31. 解析 URL Params 为对象
+
+2022/3/24
+
+32. 循环打印红黄绿
+33. 实现每隔一秒打印 1,2,3,4
+34. 小孩报数问题
+35. 用Promise实现图片的异步加载
+36. 实现prototype继承
+
+2022/3/25
+
+37. 实现发布-订阅模式
+38. 实现双向数据绑定
+39. 实现简单路由hash
+40. 实现斐波那契数列
+41. 字符串出现的不重复最长长度
+
+
+2022/3/28
+
+42. 使用 setTimeout 实现 setInterval
+43. 实现 jsonp 
+44. 判断对象是否存在循环引用
+45. 查找有序二维数组的目标值
+46. 二维数组斜向打印
+
+
+2022/3/29
+
+47. 手写promise
+48. 手写promise.then
+49. 手写promise.reject
+
+2022/3/30
+
+50. 实现 Promise.prototype.catch
+51. 实现 Promise.prototype.finally
+52. 实现 Promise.all
+53. 实现 Promise.allSettled
+54. 实现 Promise.any
+55. 实现 Promise.race

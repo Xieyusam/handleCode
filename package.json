@@ -1,0 +1,22 @@
+{
+  "name": "handlecode",
+  "version": "1.0.0",
+  "description": "2022/3/7",
+  "main": "44.js",
+  "scripts": {
+    "test:myPromise": "promises-aplus-tests myPromise/myPromise.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xieyusam/handleCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xieyusam/handleCode/issues"
+  },
+  "homepage": "https://github.com/Xieyusam/handleCode#readme",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.2"
+  }
+}
