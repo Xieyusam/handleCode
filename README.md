@@ -96,3 +96,12 @@
 53. 实现 Promise.allSettled
 54. 实现 Promise.any
 55. 实现 Promise.race
+
+
+2022/3/31
+
+56. 实现一个 compose 函数
+57. 寄生组合继承
+58. 实现有并行限制的 Promise 调度器
+59. 冒泡排序--时间复杂度 n^2
+60. 选择排序--时间复杂度 n^2
