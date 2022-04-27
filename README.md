@@ -226,3 +226,13 @@
 126. leecode 860. 柠檬水找零
 127. leecode 896. 单调数列
 128. leecode 922. 按奇偶排序数组 II
+
+2022/4/27
+
+129. leecode 28. 实现 strStr()
+130. leecode 67. 二进制求和
+131. leecode 205. 同构字符串
+132. leecode 168. Excel表列名称
+133. leecode 171. Excel 表列序号
+
+
