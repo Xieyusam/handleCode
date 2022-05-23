@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一种紧凑树形布局算法的实现(简易版)</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        #treeBox {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-color: #eeeeee;
+        }
+
+        .treeNode {
+            position: absolute;
+            background-color: #ffffff;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="treeBox">
+            <div class="treeNode" v-for="node in layoutTree" :key="node.id" :style="getStyle(node)">
+                {{node.id}}
+            </div>
+        </div>
+    </div>
+    <script src="https://ability-1251624226.file.myqcloud.com/base/vue.min.js"></script>
+    <script type="module">
+        import { treeInitData } from "./treeInitData.js"
+        const NODE_SIZE = 40
+        const Y_INTERVAL = 100
+        const X_INTERVAL = 150
+
+        const BOX_WIDTH = document.getElementById('treeBox').offsetWidth
+        const MID_WIDTH = BOX_WIDTH / 2
+
+        new Vue({
+            data() {
+                return {
+                    treeInitData,
+                    treeData: null,
+                    layoutTree: [],
+                    hashTree: [],
+                    rootNode: null
+                }
+            },
+            mounted() {
+                const { layoutTree, rootNode, hashTree } = this.Array2Tree(this.treeInitData)
+                this.layoutTree = layoutTree
+                this.rootNode = rootNode
+                this.hashTree = hashTree
+                // 纵向布局
+                this.Layout_Y()
+                // 初始化横向布局
+                this.Layout_X()
+                // X间距调整
+                this.Adjust_X()
+            },
+            methods: {
+                // 布局Y
+                Layout_Y() {
+                    for (let i = 0; i < this.hashTree.length; i++) {
+                        for (let j = 0; j < this.hashTree[i].length; j++) {
+                            this.hashTree[i][j].top = Y_INTERVAL * i + NODE_SIZE * i
+                        }
+                    }
+                },
+                // 布局X
+                Layout_X() {
+                    this.layout_X_deep(this.rootNode, MID_WIDTH)
+                },
+                layout_X_deep(node, leftVal){
+                    if (!node) return;
+                        // 距离中线居中显示
+                        node.left = leftVal - NODE_SIZE / 2
+                        // 子节点宽度
+                        let lineWidth = (node.children.length - 1) * X_INTERVAL + node.children.length * NODE_SIZE
+                        let baseLeft = leftVal - lineWidth / 2
+                        // 遍历子节点
+                        for (let i = 0; i < node.children.length; i++) {
+                            this.layout_X_deep(node.children[i], baseLeft + NODE_SIZE / 2 + i * (NODE_SIZE + X_INTERVAL))
+                        }
+                },
+                // 调整X
+                Adjust_X() {
+                    // this.hashTree
+                    let flowList = null
+                    for (let i = this.hashTree.length - 1; i >= 0; i--) {
+                        flowList = this.hashTree[i]
+                        flowList.forEach((flowItem, index) => {
+                            // 获取左边节点
+                            const leftFlowItem = flowList[index - 1]
+                            // 如果左边节点不存在则不操作
+                            // 如果间距小于X_INTERVAL
+                            if (leftFlowItem && (flowItem.left - leftFlowItem.left) < X_INTERVAL) {
+                                const parentFlowItem = this.$_findCommonParentNode(leftFlowItem, flowItem)
+                                console.log(parentFlowItem)
+                                const leftOffset = X_INTERVAL - flowItem.left + leftFlowItem.left
+                                this.$_translateXTree(parentFlowItem, leftOffset)
+                                const prevFlowItem = this.getNode(parentFlowItem.parent)
+                                // 居中调整
+                                // this.$_centerChild(prevFlowItem)
+                                i = this.hashTree.length
+                            }
+                        })
+                    }
+                },
+                $_centerChild(flowItem){
+                    this.layout_X_deep(flowItem, flowItem.left)
+                },
+                // 调整节点的left位置（X）
+                $_translateXTree(flowItem, offsetLeft) {
+                    flowItem.left += offsetLeft
+                    if (flowItem.children && flowItem.children.length > 0) {
+                        flowItem.children.forEach(children => {
+                            this.$_translateXTree(children, offsetLeft)
+                        })
+                    }
+                },
+                // 递归，找到两个节点共通的父节点
+                $_findCommonParentNode(flowItem1, flowItem2) {
+                    if (flowItem1.parent === flowItem2.parent) {
+                        return flowItem2
+                    } else {
+                        const flowItem1PreFlowItem = this.getNode(flowItem1.parent)
+                        const flowItem2PreFlowItem = this.getNode(flowItem2.parent)
+                        return this.$_findCommonParentNode(flowItem1PreFlowItem, flowItem2PreFlowItem)
+                    }
+                },
+                getNode(nodeId) {
+                    return this.layoutTree.find(item => item.id === nodeId)
+                },
+                getStyle(node) {
+                    return {
+                        left: node.left + 'px', top: node.top + 'px',
+                        width: NODE_SIZE + 'px',
+                        height: NODE_SIZE + 'px'
+                    }
+                },
+                Array2Tree(arr) {
+                    // 创建布局树
+                    let layoutTree = arr.map(item => {
+                        return {
+                            ...item,
+                            left: 0,
+                            top: 0
+                        }
+                    })
+                    // 创建树结构并找到根节点
+                    let treeMap = {}
+                    layoutTree.forEach(element => {
+                        treeMap[element.id] = element
+                    });
+                    layoutTree.forEach(item => {
+                        if (item.children) {
+                            item.children = item.children.map(id => treeMap[id])
+                        }
+                    })
+                    let rootNode = layoutTree.find(item => !item.parent)
+                    // 创建哈希树，获取层级关系
+                    let hashTree = []
+                    // hashTree[zindex] = [hashTree]
+                    const getHashTree = (root, hashTree, zindex) => {
+                        if (!root) {
+                            return
+                        }
+                        if (hashTree[zindex]) {
+                            hashTree[zindex].push(root)
+                        } else {
+                            hashTree[zindex] = [root]
+                        }
+                        root.children.forEach(node => {
+                            getHashTree(node, hashTree, zindex + 1)
+                        })
+                    }
+                    getHashTree(rootNode, hashTree, 0)
+                    console.log(layoutTree, rootNode, hashTree)
+                    return { layoutTree, rootNode, hashTree }
+                }
+            },
+
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>
