@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. 三栏布局的实现</title>
+    <style>
+        .outer {
+            position: relative;
+            height: 100px;
+        }
+
+        .left {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: tomato;
+        }
+
+        .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100px;
+            background: gold;
+        }
+
+        .center {
+            margin-left: 100px;
+            margin-right: 200px;
+            height: 100px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    利用**绝对定位**，左右两栏设置为绝对定位，中间设置对应方向大小的 margin 的值。
+    <div class="outer">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+
+</body>
+
+</html>
