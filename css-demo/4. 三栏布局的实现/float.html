@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. 三栏布局的实现</title>
+    <style>
+        .outer {
+            height: 100px;
+        }
+
+        .left {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: tomato;
+        }
+
+        .right {
+            float: right;
+            width: 200px;
+            height: 100px;
+            background: gold;
+        }
+
+        .center {
+            height: 100px;
+            margin-left: 100px;
+            margin-right: 200px;
+            background: lightgreen;
+        }
+    </style>
+</head>
+
+<body>
+    利用浮动，左右两栏设置固定大小，并设置对应方向的浮动。中间一栏设置左右两个方向的 margin 值，注意这种方式**，中间一栏必须放到最后
+    <div class="outer">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center"></div>
+    </div>
+
+</body>
+
+</html>
