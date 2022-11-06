@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. 三栏布局的实现</title>
+    <style>
+
+
+        .bro1 {
+            height: 100px;
+            width: 200px;
+            margin-bottom: 30px;
+            margin-top: 60px;
+            background-color: aqua;
+        }
+
+        .bro2 {
+            height: 100px;
+            width: 200px;
+            margin-bottom: 30px;
+            margin-top: 60px;
+            background-color: rgb(8, 53, 53);
+
+        }
+        .bfc {
+            /* display: inline-block; */
+            /* float: left; */
+            position: absolute;
+        }
+
+        .parent{
+            height: 300px;
+            width: 300px;
+            margin-top: 60px;
+            background-color: #eeeeee;
+        }
+        .son{
+            height: 30px;
+            width: 30px;
+            margin-top: 100px;
+            background-color: #f33232;
+        }
+        .bfc1{
+            /* overflow: hidden; */
+            /* border:1px solid transparent */
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 兄弟之间重叠
+    <div class="bro1">
+        兄弟div
+
+    </div>
+    <div class="bro2 bfc">
+        兄弟div
+    </div> -->
+
+    父子之间重叠
+    <div class="parent bfc1">
+        <div class="son"></div>
+    </div>
+
+</body>
+
+</html>
